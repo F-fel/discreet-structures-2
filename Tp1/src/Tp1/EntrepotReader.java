@@ -29,7 +29,6 @@ public class EntrepotReader {
      * utility function to read Entrepot.txt if it follow the right format.
      * @param br buffered reader have to be the same than readNodes();
      * @param graph graph without nedges
-     * @return adjancy matrix for the graph
      * @throws IOException
      */
     private void readEdges(BufferedReader br,NodeList graph) throws IOException {

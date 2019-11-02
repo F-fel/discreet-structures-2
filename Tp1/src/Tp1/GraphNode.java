@@ -22,7 +22,7 @@ public class GraphNode{
         add(C,c);
     }
 
-    public int getId(){return id;};
+    public int getId(){return id;}
 
     /**
      * @param objet type of object
