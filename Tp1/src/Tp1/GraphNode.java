@@ -100,6 +100,8 @@ public class GraphNode{
             add(objet);
         }
     }
+
     LinkedList<GraphEdge> getEdges(){return edges;}
+
     public void addEdge(GraphEdge edge){ edges.add(edge); }
 }

@@ -11,4 +11,16 @@ public class NodeList extends LinkedList<GraphNode> {
         return null;
     }
 
+    public String toString(){
+        string text="(";
+        for(int i=0; i<GraphNode.size(); i++)
+        {
+            text+="Noeud"+i+", "+GraphNode.getQtty(objetA)+", "+GraphNode.getQtty(objetB)
+                    +", "+GraphNode.getQtty(objetC)+"( "
+
+           for(int j=0;j<)
+        }
+        text+="))";
+    }
+
 }

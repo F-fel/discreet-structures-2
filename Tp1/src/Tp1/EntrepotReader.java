@@ -1,5 +1,7 @@
 package Tp1;
 import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
 
 public class EntrepotReader {
     /**
@@ -56,6 +58,16 @@ public class EntrepotReader {
         NodeList retval = readNodes(br);
         readEdges(br,retval);
         return retval;
+    }
+
+
+    public void creerGraphe(){
+
+        File file= new File("Graph.txt");
+        for (int i=0; i<)
+        FileWriter write= new FileWriter(file);
+
+
     }
 
 }
