@@ -13,6 +13,7 @@ public class Djikstra {
             distance[i].distance = Integer.MAX_VALUE;
         }
         distance[src].distance = 0;
+        distance[src].previousNode = graph.get(src);
 
         while(visitedLength<visited.length){
             int currentIndex = findMin(distance,visited);
@@ -36,6 +37,17 @@ public class Djikstra {
     }
 }
 class DjikstraTable{
-    int distance;
-    GraphNode previousNode;
+    private int distance;
+    private GraphNode previousNode;
+    DjikstraTable(){
+        distance=0;
+        previousNode = null;
+    }
+    DjikstraTable(int dist,GraphNode node){
+        distance=dist;
+        previousNode=node;
+    }
+    boolean isEqual(DjikstraTable dj){
+        return (distance==dj.distance && previousNode.isEqual(dj.previousNode));
+    }
 }

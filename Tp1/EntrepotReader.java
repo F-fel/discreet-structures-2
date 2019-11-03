@@ -9,12 +9,12 @@ public class EntrepotReader {
      * @return all nodes created
      * @throws IOException
      */
-    private NodeList readNodes(BufferedReader br) throws IOException {
+    public NodeList readNodes(BufferedReader br) throws IOException {
 
         String line ;
         NodeList nodes = new NodeList();
 
-        while(!(line= br.readLine()).equals("\n")){
+        while(!(line= br.readLine()).equals("")){
             int index1 = line.indexOf(',');
             int index2 = line.indexOf(',',index1+1);
             int index3 = line.indexOf(',',index2+1);
@@ -53,19 +53,11 @@ public class EntrepotReader {
      * @return the full graph
      * @throws Exception
      */
-    public NodeList readEntrepot(String filePath)throws Exception{
+    public NodeList creerGraph(String filePath)throws Exception{
         BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
         NodeList retval = readNodes(br);
         readEdges(br,retval);
         return retval;
     }
 
-
-    public void creerGraphe(){
-
-        File file= new File("Graph.txt");
-        for (int i=0; i<)
-        FileWriter write= new FileWriter(file);
-
-    }
 }

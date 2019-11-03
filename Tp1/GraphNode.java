@@ -17,6 +17,9 @@ public class GraphNode{
         listeObjet = new LinkedList<>();
         edges = new LinkedList<>();
         this.id = id;
+        objetB =0;
+        objetC =0;
+        objetA =0;
         add(A,a);
         add(B,b);
         add(C,c);
@@ -78,16 +81,17 @@ public class GraphNode{
         return true;
     }
     private void add(objetType objet){
-        switch (objet) {
-            case A:
-                listeObjet.add(new Objet(A));
-                objetA++;
-            case B:
-                listeObjet.add(new Objet(B));
-                objetB++;
-            case C:
-                listeObjet.add(new Objet(C));
-                objetC++;
+        if(objet==A) {
+            listeObjet.add(new Objet(A));
+            objetA++;
+        }
+        if(objet == B) {
+            listeObjet.add(new Objet(B));
+            objetB++;
+        }
+        if(objet == C) {
+            listeObjet.add(new Objet(C));
+            objetC++;
         }
     }
     /**
@@ -95,7 +99,7 @@ public class GraphNode{
      * @param occurence number of object to add
      */
     public void add(objetType objet, int occurence){
-        if(occurence <= 0 ) return ;
+        if(occurence == 0 ) return ;
         for(;occurence>0;occurence--){
             add(objet);
         }
@@ -104,4 +108,9 @@ public class GraphNode{
     LinkedList<GraphEdge> getEdges(){return edges;}
 
     public void addEdge(GraphEdge edge){ edges.add(edge); }
+    public boolean isEqual(GraphNode node){
+        return (id == node.id && objetA == node.objetA && objetB == node.objetB && objetC==node.objetC
+                && listeObjet.size()==node.listeObjet.size()
+                && edges.size()==node.edges.size());
+    }
 }

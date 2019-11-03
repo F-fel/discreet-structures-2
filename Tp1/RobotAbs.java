@@ -9,7 +9,7 @@ public class RobotAbs {
 
     RobotAbs(int max){
         MAX_KILO = max;
-        load = new LinkedList<>();
+        load = new LinkedList<Objet>();
         loadWeight = 0;
     }
 
