@@ -2,33 +2,37 @@ package Tp1;
 
 public class Order {
 
+    private int A_;
+    private int B_;
+    private int C_;
+
     int TotalWeight(Objet objet){
         int totalWeight=0;
 
-        //blabla bla
-
-
         return totalWeight;
-
     }
 
-    public int prendreCommande(int A, int B, int C){
-
-        int commande [] = new int[3];
-
-        commande[0] = A;
-        commande[1] = B;
-        commande[2] = C;
-
-        return commande;
-
+    Order(int A, int B, int C){
+        A_ = A;
+        B_ = B;
+        C_ = C;
     }
 
-    public void afficherCommande(int [] commande){
+   public int getNbObjetA(){
+        return A_;
+   }
+   public int getNbObjetB(){
+        return B_;
+   }
+   public int getNbObjetC(){
+        return C_
+   }
 
-        System.out.println("Nombre d'objets A : "+ commande[0]);
-        System.out.println("Nombre d'objets B : "+ commande[1]);
-        System.out.println("Nombre d'objets C : "+ commande[2]);
+    public void afficherCommande(){
+
+        System.out.println("Nombre d'objets A : "+ getNbObjetA());
+        System.out.println("Nombre d'objets B : "+ getNbObjetB());
+        System.out.println("Nombre d'objets C : "+ getNbObjetC());
     }
 
 
