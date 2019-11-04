@@ -1,12 +1,14 @@
 package Tp1;
 
 import static Tp1.objetType.*;
+import static Tp1.robotType.*;
 
 public class Order {
 
     private int A_;
     private int B_;
     private int C_;
+    private string typeOfRobot_;
 
     public int TotalWeight(){
         int totalWeight=0;
@@ -14,6 +16,7 @@ public class Order {
         Objet objetB = new Objet(B);
         Objet objetC = new Objet(C);
         totalWeight+=A_*(objetA.getWeight())+B_*(objetB.getWeight())+C_*(objetC.getWeight());
+        if (totalWeight)
         return totalWeight;
     }
 
@@ -21,6 +24,7 @@ public class Order {
         A_ = a;
         B_ = b;
         C_ = c;
+        TotalWeight();
     }
 
     int getNbObjetA(){

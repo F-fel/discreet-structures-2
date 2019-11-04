@@ -40,6 +40,8 @@ public class Djikstra {
 
     private double tempsTotal(RobotAbs robot){
         return robot.computeK()*distanceTotal();
+
+        //il y a un cout de 10 secondes  pour prendre un objet
     }
 
 
@@ -52,6 +54,7 @@ public class Djikstra {
 
         //afficher robot utilise
 
+
         //afficher liste des noeuds afficher
 
         //afficher dans la liste des noeuds donner objet pris
@@ -62,6 +65,8 @@ public class Djikstra {
         System.out.println("le temps total a effectuer pour le robot est de "+ TempsTotal());
 
         //afficher si le chemin est impossible
+
+
 
 
 

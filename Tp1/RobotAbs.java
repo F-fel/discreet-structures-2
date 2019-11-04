@@ -2,6 +2,8 @@ package Tp1;
 
 import java.util.LinkedList;
 
+enum robotType {X, Y, Z}
+
 public class RobotAbs {
     final private int MAX_KILO;
     private LinkedList<Objet> load;
