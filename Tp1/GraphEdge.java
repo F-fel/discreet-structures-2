@@ -13,4 +13,8 @@ public class GraphEdge {
     public int getDistance() {
         return distance;
     }
+
+    public boolean isEqual(GraphEdge obj) {
+        return (node.getId() == obj.node.getId() && distance==obj.distance);
+    }
 }

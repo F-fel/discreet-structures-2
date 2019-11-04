@@ -17,10 +17,12 @@ public class UserInterface {
                 "3 : Prendre une commande\n" +
                 "4 : Afficher votre commande\n" +
                 "5 : Afficher le plus cour chemin\n" +
-                "6 : Quitter");
+                "6 : Quitter\n");
     }
 
     public  void run(){
+        start();
+        showOptions();
         Scanner in = new Scanner(System.in);
         while(true) {
             switch (in.nextInt()) {
@@ -47,11 +49,11 @@ public class UserInterface {
     private void creerGraph() {
         Scanner in = new Scanner(System.in);
         URL path = GraphNode.class.getResource("entrepot.txt");
-        String file = path.getFile();
+        String file = "C:\\Users\\faelfa\\IdeaProjects\\Log2810_tp1\\src\\Tp1\\entrepot.txt";
         EntrepotReader er = new EntrepotReader();
         while (true) {
             try {
-                graph=er.creerGraph(file);
+                graph=er.creerGraph();
                 break;
             } catch (Exception e) {
                 System.out.print("Le chemin pour le fichier txt n'est pas valid.\n SVP entrer un chemin valid : \n");

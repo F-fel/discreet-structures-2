@@ -109,6 +109,11 @@ public class GraphNode{
 
     public void addEdge(GraphEdge edge){ edges.add(edge); }
     public boolean isEqual(GraphNode node){
+        if(edges.size()==node.edges.size()) {
+            for(int i =0; i<edges.size();++i){
+                if(!edges.get(i).isEqual(node.edges.get(i))) return false;
+            }
+        }
         return (id == node.id && objetA == node.objetA && objetB == node.objetB && objetC==node.objetC
                 && listeObjet.size()==node.listeObjet.size()
                 && edges.size()==node.edges.size());

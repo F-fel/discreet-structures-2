@@ -44,7 +44,67 @@ public class Tester {
         }
         return b;
     }
+    boolean graphTest(){
+        boolean b = false;
+        NodeList correct = new NodeList();
+        correct.add(new GraphNode(0, 0, 0, 0));
+        correct.add(new GraphNode(1, 0, 0, 0));
+        correct.add(new GraphNode(2, 1, 0, 0));
+        correct.add(new GraphNode(3, 0, 1, 0));
+        correct.add(new GraphNode(4, 3, 0, 1));
+        correct.add(new GraphNode(5, 0, 0, 1));
+        correct.add(new GraphNode(6, 2, 0, 0));
+        correct.add(new GraphNode(7, 2, 1, 0));
+        correct.add(new GraphNode(8, 0, 0, 0));
+        correct.add(new GraphNode(9, 1, 0, 0));
+        correct.add(new GraphNode(10, 0, 1, 0));
+        correct.add(new GraphNode(11, 0, 0, 0));
+        correct.add(new GraphNode(12, 1, 0, 0));
+        correct.add(new GraphNode(13, 3, 0, 1));
+        correct.add(new GraphNode(14, 2, 2, 0));
+        correct.add(new GraphNode(15, 1, 1, 0));
+        correct.add(new GraphNode(16, 0, 1, 0));
+        correct.add(new GraphNode(17, 0, 0, 1));
+        correct.add(new GraphNode(18, 0, 0, 0));
+        correct.add(new GraphNode(19, 0, 2, 0));
+        correct.add(new GraphNode(20, 1, 1, 3));
 
+
+        edgeCreator(correct.get(0),correct.get(1),10);
+        edgeCreator(correct.get(0),correct.get(6),15);
+        edgeCreator(correct.get(1),correct.get(2),16);
+        edgeCreator(correct.get(2),correct.get(3),8);
+        edgeCreator(correct.get(2),correct.get(12),29);
+        edgeCreator(correct.get(3),correct.get(6),31);
+        edgeCreator(correct.get(3),correct.get(7),12);
+        edgeCreator(correct.get(3),correct.get(9),16);
+        edgeCreator(correct.get(4),correct.get(8),8);
+        edgeCreator(correct.get(4),correct.get(9),9);
+        edgeCreator(correct.get(5),correct.get(10),14);
+        edgeCreator(correct.get(5),correct.get(11),24);
+        edgeCreator(correct.get(6),correct.get(11),10);
+        edgeCreator(correct.get(6),correct.get(17),38);
+        edgeCreator(correct.get(7),correct.get(8),11);
+        edgeCreator(correct.get(8),correct.get(14),19);
+        edgeCreator(correct.get(8),correct.get(17),26);
+        edgeCreator(correct.get(9),correct.get(18),32);
+        edgeCreator(correct.get(10),correct.get(16),18);
+        edgeCreator(correct.get(11),correct.get(15),23);
+        edgeCreator(correct.get(12),correct.get(13),13);
+        edgeCreator(correct.get(12),correct.get(16),15);
+        edgeCreator(correct.get(14),correct.get(19),7);
+        edgeCreator(correct.get(15),correct.get(20),29);
+        edgeCreator(correct.get(17),correct.get(19),26);
+        edgeCreator(correct.get(19),correct.get(20),27);
+        EntrepotReader er = new EntrepotReader();
+        try {
+            NodeList out = er.creerGraph();
+            if(out.isEqual(correct))b = true;
+        }catch (Exception e) {
+            System.out.print("something is fishy\n");
+        }
+        return b;
+    }
     /**
      * djikstra test on a simple graph hand made
      * @return true if works
@@ -86,5 +146,9 @@ public class Tester {
         }
 
         return retval;
+    }
+    private void edgeCreator(GraphNode node1, GraphNode node2, int dist){
+        node1.addEdge(new GraphEdge(node2,dist));
+        node2.addEdge(new GraphEdge(node1,dist));
     }
 }

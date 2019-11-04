@@ -28,8 +28,8 @@ public class NodeList extends LinkedList<GraphNode> {
         return text;
     }
 
-    public void afficherGraphe(GraphNode node){
-        for(node:this) {
+    public void afficherGraphe(){
+        for(GraphNode node:this) {
             System.out.println(nodetoString(node));
         }
     }
