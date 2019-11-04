@@ -1,6 +1,7 @@
 package Tp1;
 
 enum objetType {A, B, C}
+
 public class Objet {
     private int weight;
     private objetType type; //identification

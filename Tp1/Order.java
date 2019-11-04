@@ -1,13 +1,20 @@
 package Tp1;
 
-class Order {
+import static Tp1.objetType.*;
+
+public class Order {
 
     private int A_;
     private int B_;
     private int C_;
 
-    int TotalWeight(){
-        return A_ + (3* B_ )+ (6 * C_);
+    public int TotalWeight(){
+        int totalWeight=0;
+        Objet objetA = new Objet(A);
+        Objet objetB = new Objet(B);
+        Objet objetC = new Objet(C);
+        totalWeight+=A_*(objetA.getWeight())+B_*(objetB.getWeight())+C_*(objetC.getWeight());
+        return totalWeight;
     }
 
     Order(int a, int b, int c){

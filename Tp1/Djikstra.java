@@ -37,6 +37,35 @@ public class Djikstra {
         }
         return min;
     }
+
+    private double tempsTotal(RobotAbs robot){
+        return robot.computeK()*distanceTotal();
+    }
+
+
+    private double distanceTotal(){
+
+    }
+
+    private void plusCourtChemin(){
+        //Dijkstra
+
+        //afficher robot utilise
+
+        //afficher liste des noeuds afficher
+
+        //afficher dans la liste des noeuds donner objet pris
+
+        //afficher temps total et distance
+
+        System.out.println("le robot parcours une distance de "+ distanceTotal()+" metres");
+        System.out.println("le temps total a effectuer pour le robot est de "+ TempsTotal());
+
+        //afficher si le chemin est impossible
+
+
+
+    }
 }
 class DjikstraTable{
     private int distance;
