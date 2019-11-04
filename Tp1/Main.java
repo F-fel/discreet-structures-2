@@ -9,7 +9,7 @@ public class Main {
         Tester test = new Tester();
         if(test.nodeTest()) System.out.println( "READNODE WORKS");
         else System.out.println("eww");
-        test.djikstraTester();
+        if(test.djikstraTester()) System.out.println("DJIKSTRA WORKS");
     }
 
 }
