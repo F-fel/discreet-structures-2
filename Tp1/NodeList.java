@@ -15,14 +15,23 @@ public class NodeList extends LinkedList<GraphNode> {
         return ret;
     }
 
-    public String toString(){
+    public String nodetoString(GraphNode node){
         String text="(";
-        for(GraphNode node : this) {
-            text+="Noeud"+node.getId()+", "+node.getQtty(A)+", "+node.getQtty(B)
+        text+="Noeud"+node.getId()+", "+node.getQtty(A)+", "+node.getQtty(B)
                     +", "+node.getQtty(C)+"( ";
+
+        for(GraphEdge edges:node.getEdges()){
+            text+= "( "+edges.getNode()+", "+edges.getDistance()+"), ";
+
         }
         text+="))";
         return text;
+    }
+
+    public void afficherGraphe(GraphNode node){
+        for(node:this) {
+            System.out.println(nodetoString(node));
+        }
     }
 
 }
