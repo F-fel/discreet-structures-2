@@ -51,14 +51,12 @@ public class EntrepotReader {
      *
      * @param filePath path of the file needed
      * @return the full graph
-     * @throws Exception
+     * @throws Exception file not found
      */
-    public void creerGraphe(){
-
-//        File file= new File("Graph.txt");
-//        for (int i=0; i<)
-//        FileWriter write= new FileWriter(file);
-
-
+    public NodeList creerGraph(String filePath)throws Exception{
+        BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
+        NodeList retval = readNodes(br);
+        readEdges(br,retval);
+        return retval;
     }
 }
