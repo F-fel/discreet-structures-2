@@ -53,11 +53,12 @@ public class EntrepotReader {
      * @return the full graph
      * @throws Exception
      */
-    public NodeList creerGraph(String filePath)throws Exception{
-        BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
-        NodeList retval = readNodes(br);
-        readEdges(br,retval);
-        return retval;
-    }
+    public void creerGraphe(){
 
+//        File file= new File("Graph.txt");
+//        for (int i=0; i<)
+//        FileWriter write= new FileWriter(file);
+
+
+    }
 }
