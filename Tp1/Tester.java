@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Tester {
     /**
      * Test function only works for the entrepot.txt given in the TP
-     * @return
+     * @return true if read correctly
      */
     public boolean nodeTest(){
         NodeList correct = new NodeList();
@@ -44,8 +44,13 @@ public class Tester {
         }
         return b;
     }
+
+    /**
+     * djikstra test on a simple graph hand made
+     * @return true if works
+     */
     boolean djikstraTester(){
-        boolean retval = false;
+        boolean retval = true;
         NodeList graph = new NodeList();
         GraphNode A =new GraphNode(0,0,0,0);
         GraphNode B =new GraphNode(1,0,0,0);
@@ -71,16 +76,14 @@ public class Tester {
         graph.add(D);
         Djikstra dj = new Djikstra();
         DjikstraTable[] correct = new DjikstraTable[4];
-        correct[0].distance =0;
-        correct[0].previousNode = A;
-        correct[1].distance = 7;
-        correct[1].previousNode = A;
-        correct[2].previousNode = B;
-        correct[2].distance = 9;
-        correct[3].distance=10;
-        correct[3].previousNode = B;
+        correct[0] = new DjikstraTable(0,A);
+        correct[1] = new DjikstraTable(7,A);
+        correct[2] = new DjikstraTable(9,B);
+        correct[3] = new DjikstraTable(10,B);
         DjikstraTable[] out =dj.algorithm(graph,0);
-
+        for(int i =0; i<4;++i){
+            if(!correct[i].isEqual(out[i])) retval = false;
+        }
 
         return retval;
     }
