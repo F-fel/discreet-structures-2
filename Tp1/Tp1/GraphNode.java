@@ -10,22 +10,60 @@ public class GraphNode{
     private int objetA;
     private int objetB;
     private int objetC;
-    private LinkedList<Objet> listeObjet;
+
+    private int objetAVoulu;
+    private int objetBVoulu;
+    private int objetCVoulu;
+
+    private int nbObjetTotal;
     private LinkedList<GraphEdge> edges;
 
     GraphNode(int id, int a , int b, int c){
-        listeObjet = new LinkedList<>();
+
         edges = new LinkedList<>();
         this.id = id;
-        objetB =0;
-        objetC =0;
-        objetA =0;
-        add(A,a);
-        add(B,b);
-        add(C,c);
+        nbObjetTotal=a+b+c;
+        objetA =a;
+        objetB =b;
+        objetC =c;
+
+        objetAVoulu=0;
+        objetBVoulu=0;
+        objetCVoulu=0;
+
     }
 
-    public int getId(){return id;}
+    public int getObjetAVoulu(){
+        return objetAVoulu;
+    }
+
+    public int getObjetBVoulu(){
+        return objetBVoulu;
+    }
+
+    public int getObjetCVoulu(){
+        return objetCVoulu;
+    }
+
+    public int getNbObjetTotal(){
+        return nbObjetTotal;
+    }
+
+    public int getObjetA(){
+        return objetA;
+    }
+
+    public int getObjetB(){
+        return objetB;
+    }
+
+    public int getObjetC(){
+        return objetC;
+    }
+
+    public int getId(){
+        return id;
+    }
 
     /**
      * @param objet type of object
@@ -44,21 +82,24 @@ public class GraphNode{
             case A:
                 if (objetA != 0 ) {
                     objetA--;
-                    listeObjet.remove(new Objet(A));
+                    nbObjetTotal--;
+
                     return true;
                 }
                 else return false;
             case B:
                 if (objetB != 0 ) {
                     objetB--;
-                    listeObjet.remove(new Objet(B));
+                    nbObjetTotal--;
+
                     return true;
                 }
                 else return false;
             case C:
                 if (objetC != 0 ) {
                     objetC--;
-                    listeObjet.remove(new Objet(C));
+                    nbObjetTotal--;
+
                     return true;
                 }
                 else return false;
@@ -66,6 +107,7 @@ public class GraphNode{
                 return false;
         }
     }
+
     /**
      * @param objet type of objet you wanna remove
      * @param occurence number of objects you wnna remove
@@ -80,34 +122,17 @@ public class GraphNode{
         }
         return true;
     }
-    private void add(objetType objet){
-        if(objet==A) {
-            listeObjet.add(new Objet(A));
-            objetA++;
-        }
-        if(objet == B) {
-            listeObjet.add(new Objet(B));
-            objetB++;
-        }
-        if(objet == C) {
-            listeObjet.add(new Objet(C));
-            objetC++;
-        }
-    }
-    /**
-     * @param objet type of objet to add
-     * @param occurence number of object to add
-     */
-    public void add(objetType objet, int occurence){
-        if(occurence == 0 ) return ;
-        for(;occurence>0;occurence--){
-            add(objet);
-        }
+
+
+
+    LinkedList<GraphEdge> getEdges(){
+        return edges;
     }
 
-    LinkedList<GraphEdge> getEdges(){return edges;}
+    public void addEdge(GraphEdge edge){
+        edges.add(edge);
+    }
 
-    public void addEdge(GraphEdge edge){ edges.add(edge); }
     public boolean isEqual(GraphNode node){
         if(edges.size()==node.edges.size()) {
             for(int i =0; i<edges.size();++i){
@@ -115,7 +140,7 @@ public class GraphNode{
             }
         }
         return (id == node.id && objetA == node.objetA && objetB == node.objetB && objetC==node.objetC
-                && listeObjet.size()==node.listeObjet.size()
+                && nbObjetTotal==node.getNbObjetTotal()
                 && edges.size()==node.edges.size());
     }
 }
