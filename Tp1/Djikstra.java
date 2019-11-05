@@ -40,16 +40,27 @@ public class Djikstra {
         return min;
     }
 
-    private double tempsTotal(RobotAbs robot){// A FAIRE
+    private double tempsTotal(RobotAbs robot, Order order){// A FAIRE
+        int tempsTotal=0;
+        //formule temps=robot.computeK()*distanceTotal();
 
-        //return robot.computeK()*distanceTotal();
-        //il y a un cout de 10 secondes  pour prendre un objet
+
+        //il y a un cout de 10 secondes  pour prendre un objet a chaque fois
+        tempsTotal+=(10*order.getTotalObjet_());
+
+        return tempsTotal;
+
+
     }
-
 
     private double distanceTotal(){ //A FAIRE
 
-        //a changer
+        //additioner toute les distances entre les nodes du parcours
+
+
+        //faire cette disctance *2 pour aller retour
+        distanceTotal_*=2;
+
         return distanceTotal_;
     }
 

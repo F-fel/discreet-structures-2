@@ -9,6 +9,7 @@ public class Order {
     private int B_;
     private int C_;
     private String robotChoose_;
+    private int totalObjet_=0;
     private int totalWeight_=0;
     private boolean impossible=false;
 
@@ -22,6 +23,10 @@ public class Order {
 
     public String getRobotChoose_(){
         return robotChoose_;
+    }
+
+    public int getTotalObjet_(){
+        return totalObjet_;
     }
 
     public boolean getImpossible(){
@@ -44,7 +49,7 @@ public class Order {
         return C_;
     }
 
-    public int totalWeight(){
+    public void totalWeight(){
         totalWeight_+=A_*(objetA.getWeight())+B_*(objetB.getWeight())+C_*(objetC.getWeight());
 
         if (totalWeight_<=robotX.getMAX_KILO()){
@@ -59,13 +64,13 @@ public class Order {
         else if (totalWeight_>robotZ.getMAX_KILO()){
             impossible=true;
         }
-        return totalWeight_;
     }
 
     Order(int a, int b, int c){
         A_ = a;
         B_ = b;
         C_ = c;
+        totalObjet_= A_+B_+C_;
         totalWeight();
     }
 
