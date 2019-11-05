@@ -12,10 +12,10 @@ public class Order {
 
     public String getRobotChoice(){
         int weight = totalWeight();
-        if(weight <= RobotX.MAX_KILO_) return "RobotX";
-        if(weight <= RobotY.MAX_KILO_) return "RobotY";
-        if(weight <= RobotZ.MAX_KILO_) return "RobotZ";
-        else return "La commande est trop lourde, veuillez la diviser en plusieur petiteds commande\n";
+        if(weight <= RobotX.MAX_KILO_) return "le robot choisi pour cette commande est le RobotX";
+        if(weight <= RobotY.MAX_KILO_) return "le robot choisi pour cette commande est le RobotY";
+        if(weight <= RobotZ.MAX_KILO_) return "le robot choisi pour cette commande est le RobotZ";
+        else return "La commande est trop lourde, veuillez la diviser en plusieurs petites commandes\n";
     }
 
     public int getTotalObjet(){
@@ -40,6 +40,8 @@ public class Order {
     }
 
 
+
+
     Order(int a, int b, int c){
         A_ = a;
         B_ = b;
@@ -53,6 +55,7 @@ public class Order {
         System.out.println("Nombre d'objets B : "+ B_);
         System.out.println("Nombre d'objets C : "+ C_);
     }
+
     /** TODO : complete
      * @param in djikstra table of finished algortihm
      * @return the nodes in order (aller - retour)

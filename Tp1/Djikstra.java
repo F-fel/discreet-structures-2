@@ -47,7 +47,7 @@ public class Djikstra {
         //formule temps=robot.computeK()*distanceTotal();
 
         //il y a un cout de 10 secondes  pour prendre un objet a chaque fois
-        tempsTotal+=(10*order.getTotalObjet_());
+        tempsTotal+=(10*(order.getTotalObjet()));
 
         return tempsTotal;
 
@@ -75,21 +75,15 @@ public class Djikstra {
         //afficher robot utilise , afficher temps total et distance et commande
 
         System.out.println("objet A: "+ order.getA_()+", objet B: "+ order.getB_()+", objet C: "+ order.getC_());
-        System.out.println("le robot choisi pour cette commande est le robot: "+ order.getRobotChoose_());
+        System.out.println(order.getRobotChoice());
         System.out.println("le robot parcours une distance de "+ distanceTotal()+" metres");
-        System.out.println("le temps total a effectuer pour le robot est de "+ tempsTotal());
+        System.out.println("le temps total a effectuer pour le robot est de ");//+ tempsTotal()); //manque parametre pour fonction
 
-        //afficher liste des noeuds afficher
+        //afficher liste des noeuds traverse
 
         //afficher les objets prient dans les noeuds
+        
 
-
-        //afficher si le chemin est impossible
-
-        if (order.getImpossible()){
-            System.out.println("la commande est impossible car cette derniere est trop lourde ("
-                    +order.getTotalWeight_()+" kg)");
-        }
 
 
     }

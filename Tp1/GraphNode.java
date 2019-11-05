@@ -2,7 +2,7 @@ package Tp1;
 
 import java.util.LinkedList;
 
-import static Tp1.objetType.*;
+//import static Tp1.objetType.*;
 
 
 public class GraphNode{
