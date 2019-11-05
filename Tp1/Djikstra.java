@@ -1,6 +1,8 @@
 package Tp1;
 
 public class Djikstra {
+    private int distanceTotal_=0;
+
     public DjikstraTable[] algorithm(NodeList graph,int src){
         DjikstraTable[] distance = new DjikstraTable[graph.size()];
         //index of visited nodes will be true
@@ -38,33 +40,43 @@ public class Djikstra {
         return min;
     }
 
-    private double tempsTotal(RobotAbs robot){
-        return robot.computeK()*distanceTotal();
+    private double tempsTotal(RobotAbs robot){// A FAIRE
 
+        //return robot.computeK()*distanceTotal();
         //il y a un cout de 10 secondes  pour prendre un objet
     }
 
 
-    private double distanceTotal(){
+    private double distanceTotal(){ //A FAIRE
 
+        //a changer
+        return distanceTotal_;
     }
 
-    private void plusCourtChemin(){
+    private void plusCourtChemin(NodeList graph,int src, Order order){
         //Dijkstra
 
-        //afficher robot utilise
+        //afficher robot utilise , afficher temps total et distance et commande
 
+        System.out.println("objet A: "+ order.getA_()+", objet B: "+ order.getB_()+", objet C: "+ order.getC_());
+        System.out.println("le robot choisi pour cette commande est le robot: "+ order.getRobotChoose_());
+        System.out.println("le robot parcours une distance de "+ distanceTotal()+" metres");
+        System.out.println("le temps total a effectuer pour le robot est de "+ tempsTotal());
 
         //afficher liste des noeuds afficher
 
-        //afficher dans la liste des noeuds donner objet pris
+        //afficher les objets prient dans les noeuds
 
-        //afficher temps total et distance
+        //afficher temps total et distance et commande
 
-        System.out.println("le robot parcours une distance de "+ distanceTotal()+" metres");
-        System.out.println("le temps total a effectuer pour le robot est de "+ TempsTotal());
+
 
         //afficher si le chemin est impossible
+
+        if (order.getImpossible()){
+            System.out.println("la commande est impossible car cette derniere est trop lourde ("
+                    +order.getTotalWeight_()+" kg)");
+        }
 
 
 
