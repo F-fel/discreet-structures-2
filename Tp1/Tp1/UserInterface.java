@@ -1,6 +1,5 @@
 package Tp1;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -48,7 +47,7 @@ public class UserInterface {
     }
     private void creerGraph() {
         Scanner in = new Scanner(System.in);
-        URL path = GraphNode.class.getResource("entrepot.txt");
+        URL path = GraphNode.class.getResource("Tp1/entrepot.txt");
         String file = "C:\\Users\\faelfa\\IdeaProjects\\Log2810_tp1\\src\\Tp1\\entrepot.txt";
         EntrepotReader er = new EntrepotReader();
         while (true) {
@@ -78,4 +77,11 @@ public class UserInterface {
         commande.afficherCommande();
     }
 
+    /**
+     * todo
+     */
+    private void plusCourtChemin() {
+        Djikstra dj;
+        String print = "le chemin optimal est : \n" ;
+    }
 }

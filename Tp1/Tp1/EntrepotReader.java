@@ -1,7 +1,7 @@
 package Tp1;
 import java.io.*;
-import java.io.File;
-import java.io.FileWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class EntrepotReader {
     /**
@@ -49,12 +49,12 @@ public class EntrepotReader {
 
     /**
      *
-     * @param filePath path of the file needed
      * @return the full graph
      * @throws Exception file not found
      */
     public NodeList creerGraph()throws Exception{
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\faelfa\\IdeaProjects\\Log2810_tp1\\src\\Tp1\\entrepot.txt"));
+        File file = new File(getClass().getResource("entrepot.txt").getFile());
+        BufferedReader br = new BufferedReader(new FileReader(file));
         String line ;
         NodeList nodes = new NodeList();
 

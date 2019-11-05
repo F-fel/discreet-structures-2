@@ -1,7 +1,7 @@
 package Tp1;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -36,7 +36,8 @@ public class Tester {
         correct.add(new GraphNode(20, 1, 1, 3));
         EntrepotReader er = new EntrepotReader();
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\faelfa\\IdeaProjects\\Log2810_tp1\\src\\Tp1\\entrepot.txt"));
+            File file = new File(getClass().getResource("entrepot.txt").getFile());
+            BufferedReader br = new BufferedReader(new FileReader(file));
             NodeList nodes =er.readNodes(br);
             if(nodes.isEqual(correct)) b = true;
         } catch (IOException e) {

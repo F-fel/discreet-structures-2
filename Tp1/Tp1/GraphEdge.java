@@ -1,6 +1,6 @@
 package Tp1;
 
-public class GraphEdge {
+class GraphEdge {
     private GraphNode node;
     private int distance;
     GraphEdge(GraphNode node_ ,int dist){
@@ -8,13 +8,11 @@ public class GraphEdge {
         distance = dist;
     }
 
-    public GraphNode getNode() { return node; }
+    GraphNode getNode() { return node; }
 
-    public int getDistance() {
-        return distance;
-    }
+    int getDistance() { return distance; }
 
-    public boolean isEqual(GraphEdge obj) {
+    boolean isEqual(GraphEdge obj) {
         return (node.getId() == obj.node.getId() && distance==obj.distance);
     }
 }

@@ -5,17 +5,13 @@ import java.util.LinkedList;
 enum robotType {X, Y, Z}
 
 public class RobotAbs {
-    final private int MAX_KILO_;
+    static final int MAX_KILO_ = 25;
     private LinkedList<Objet> load_;
     private int loadWeight_;
 
-    public int getMAX_KILO(){
-        return MAX_KILO_;
-    }
 
 
-    RobotAbs(int max){
-        MAX_KILO_ = max;
+    RobotAbs(){
         load_ = new LinkedList<Objet>();
         loadWeight_ = 0;
     }
