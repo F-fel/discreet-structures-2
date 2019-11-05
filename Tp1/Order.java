@@ -12,9 +12,9 @@ public class Order {
 
     public String getRobotChoice(){
         int weight = totalWeight();
-        if(weight <= RobotX.MAX_KILO_) return "le robot choisi pour cette commande est le RobotX";
-        if(weight <= RobotY.MAX_KILO_) return "le robot choisi pour cette commande est le RobotY";
-        if(weight <= RobotZ.MAX_KILO_) return "le robot choisi pour cette commande est le RobotZ";
+        if(weight <= RobotX.MAX_KILO_) return "X";
+        if(weight <= RobotY.MAX_KILO_) return "Y";
+        if(weight <= RobotZ.MAX_KILO_) return "Z";
         else return "La commande est trop lourde, veuillez la diviser en plusieurs petites commandes\n";
     }
 
@@ -38,7 +38,6 @@ public class Order {
      int getC_(){
         return C_;
     }
-
 
 
 
@@ -75,6 +74,74 @@ public class Order {
 
         return null;
     }
+
+
+    public void afficherParcours(){
+        //affichage voulu
+        //pointdepart->point1->point2->collecting A-> pointn->pointarrive
+        String text= "pointDepart->";
+        for(GraphNode node:this) {
+            text+="point"+node.getId()+"->";//node parcouru
+            //objet recuperer
+
+        }
+        text+="pointArrivee";
+        System.out.println(text);
+        System.out.println("robot utilise : Type "+ getRobotChoice());
+        System.out.println("temps: "+ tempsTotal());
+        System.out.println("distance: "+ distanceTotal());
+
+
+    }
+
+    private double tempsTotal(){// A FAIRE
+        int tempsTotal=0;
+        //formule temps=robot.computeK()*distanceTotal();
+
+        //il y a un cout de 10 secondes  pour prendre un objet a chaque fois
+        tempsTotal+=(10*getTotalObjet());
+
+        return tempsTotal;
+
+    }
+
+    private double distanceTotal(){ //A FAIRE
+        int distanceTotal_=0;
+        //additioner toute les distances entre les nodes du parcours
+
+
+        //faire cette disctance *2 pour aller retour
+        distanceTotal_*=2;
+
+        return distanceTotal_;
+    }
+
+    private void plusCourtChemin(NodeList graph,int src, Order order){
+
+        //Dijkstra
+        //DjikstraTable[] djikstraTables=algorithm (graph,src);
+
+
+        //afficher robot utilise , afficher temps total et distance et commande
+
+        System.out.println("objet A: "+ order.getA_()+", objet B: "+ order.getB_()+", objet C: "+ order.getC_());
+        System.out.println(order.getRobotChoice());
+        System.out.println("le robot parcours une distance de "+ distanceTotal()+" metres");
+        System.out.println("le temps total a effectuer pour le robot est de ");//+ tempsTotal()); //manque parametre pour fonction
+
+        //afficher liste des noeuds traverse
+
+
+
+        //afficher les objets prient dans les noeuds
+
+
+    }
+
+
+
+
+
 
 
 }
