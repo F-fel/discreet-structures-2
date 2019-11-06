@@ -11,8 +11,8 @@ public class Main {
         else System.out.println("eww");
         if(test.graphTest()) System.out.println("graph created successfully");
         if(test.djikstraTester()) System.out.println("DJIKSTRA WORKS");
-        //UserInterface ui = new UserInterface();
-        //ui.run();
+        UserInterface ui = new UserInterface();
+        ui.run();
     }
 
 }

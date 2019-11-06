@@ -24,23 +24,17 @@ public class UserInterface {
         showOptions();
         Scanner in = new Scanner(System.in);
         while(true) {
-            switch (in.nextInt()) {
-                case 1:
-                    creerGraph();
-                case 2:
-                    afficherGraph();
-                case 3:
-                    prendreCommande();
-                case 4:
-                    afficherCommande();
-                case 6:
-                    return;
-                default:
-                    def();
+            int i = in.nextInt();
+            if(i==1) creerGraph();
+            else if(i==2) afficherGraph();
+            else if(i==3) prendreCommande();
+            else if(i==4) afficherCommande();
+            else if(i==5) plusCourtChemin();
+            else if(i==6) return;
+            else def();
             }
         }
 
-    }
     private void def(){
         System.out.print("L'option séléctioner est invalide.\n");
         showOptions();
@@ -61,7 +55,7 @@ public class UserInterface {
         }
     }
     private void afficherGraph(){
-        System.out.println( graph.toString());
+        graph.afficherGraphe();
     }
     private void prendreCommande(){
         Scanner in = new Scanner(System.in);

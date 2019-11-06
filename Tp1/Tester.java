@@ -137,10 +137,10 @@ public class Tester {
         graph.add(D);
         Djikstra dj = new Djikstra();
         DjikstraTable[] correct = new DjikstraTable[4];
-        correct[0] = new DjikstraTable(0,A);
-        correct[1] = new DjikstraTable(7,A);
-        correct[2] = new DjikstraTable(9,B);
-        correct[3] = new DjikstraTable(10,B);
+        correct[0] = new DjikstraTable(0,A,A);
+        correct[1] = new DjikstraTable(7,A,B);
+        correct[2] = new DjikstraTable(9,B,C);
+        correct[3] = new DjikstraTable(10,B,D);
         DjikstraTable[] out =dj.algorithm(graph,0);
         for(int i =0; i<4;++i){
             if(!correct[i].isEqual(out[i])) retval = false;

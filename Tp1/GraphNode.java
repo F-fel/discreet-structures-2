@@ -11,55 +11,20 @@ public class GraphNode{
     private int objetB;
     private int objetC;
 
-    private int objetAVoulu;
-    private int objetBVoulu;
-    private int objetCVoulu;
 
-    private int nbObjetTotal;
     private LinkedList<GraphEdge> edges;
 
     GraphNode(int id, int a , int b, int c){
 
         edges = new LinkedList<>();
         this.id = id;
-        nbObjetTotal=a+b+c;
         objetA =a;
         objetB =b;
         objetC =c;
 
-        objetAVoulu=0;
-        objetBVoulu=0;
-        objetCVoulu=0;
-
     }
 
-    public int getObjetAVoulu(){
-        return objetAVoulu;
-    }
 
-    public int getObjetBVoulu(){
-        return objetBVoulu;
-    }
-
-    public int getObjetCVoulu(){
-        return objetCVoulu;
-    }
-
-    public int getNbObjetTotal(){
-        return nbObjetTotal;
-    }
-
-    public int getObjetA(){
-        return objetA;
-    }
-
-    public int getObjetB(){
-        return objetB;
-    }
-
-    public int getObjetC(){
-        return objetC;
-    }
 
     public int getId(){
         return id;
@@ -82,7 +47,6 @@ public class GraphNode{
             case A:
                 if (objetA != 0 ) {
                     objetA--;
-                    nbObjetTotal--;
 
                     return true;
                 }
@@ -90,7 +54,6 @@ public class GraphNode{
             case B:
                 if (objetB != 0 ) {
                     objetB--;
-                    nbObjetTotal--;
 
                     return true;
                 }
@@ -98,7 +61,6 @@ public class GraphNode{
             case C:
                 if (objetC != 0 ) {
                     objetC--;
-                    nbObjetTotal--;
 
                     return true;
                 }
@@ -140,7 +102,11 @@ public class GraphNode{
             }
         }
         return (id == node.id && objetA == node.objetA && objetB == node.objetB && objetC==node.objetC
-                && nbObjetTotal==node.getNbObjetTotal()
+                && getNbObjetTotal()==node.getNbObjetTotal()
                 && edges.size()==node.edges.size());
+    }
+
+    private int getNbObjetTotal() {
+        return objetA + objetB + objetC;
     }
 }

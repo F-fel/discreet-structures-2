@@ -2,6 +2,8 @@ package Tp1;
 
 import java.util.LinkedList;
 
+import static Tp1.objetType.*;
+
 
 public class NodeList extends LinkedList<GraphNode> {
     NodeList(){super();}
@@ -16,11 +18,11 @@ public class NodeList extends LinkedList<GraphNode> {
 
     public String nodetoString(GraphNode node){
         String text="(";
-        text+="Noeud"+node.getId()+", "+node.getObjetA()+", "+node.getObjetB()
-                    +", "+node.getObjetC()+"( ";
+        text+="Noeud"+node.getId()+", "+node.getQtty(A)+", "+node.getQtty(B)
+                    +", "+node.getQtty(C)+"( ";
 
         for(GraphEdge edges:node.getEdges()){
-            text+= "( "+edges.getNode()+", "+edges.getDistance()+"), ";
+            text+= "( "+edges.getNode().getId()+", "+edges.getDistance()+"), ";
 
         }
         text+="))";

@@ -12,7 +12,7 @@ public class Djikstra {
 
         //mettre les distance a l'infinie
         for(int i =0; i<distance.length;++i){
-            distance[i]= new DjikstraTable(Integer.MAX_VALUE,graph.get(src));
+            distance[i]= new DjikstraTable(Integer.MAX_VALUE,graph.get(src),graph.get(i));
         }
         distance[src].setDistance(0);
         distance[src].setPreviousNode(graph.get(src));
@@ -45,16 +45,20 @@ public class Djikstra {
 }
 
 class DjikstraTable{
+    private GraphNode node;
     private int distance;
     private GraphNode previousNode;
     DjikstraTable(){
         distance=0;
         previousNode = null;
+        node =null;
     }
-    DjikstraTable(int dist,GraphNode node){
+    DjikstraTable(int dist,GraphNode pnode, GraphNode node_){
         distance=dist;
-        previousNode=node;
+        previousNode=pnode;
+        node = node_;
     }
+    GraphNode getNode(){return node;}
     int getDistance(){return distance;}
     GraphNode getPreviousNode(){return previousNode;}
 
