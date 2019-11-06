@@ -81,11 +81,21 @@ public class UserInterface {
      * todo
      */
     private void plusCourtChemin() {
-        Djikstra dj;
-        String print = "le chemin optimal est : \n" ;
-        for(GraphNode node : commande.chemin()){
-            print = print + Integer(node.getId()).toString() + " --> ";
+        Djikstra dj = new Djikstra();
+        NodeList orderedIndexes = commande.chemin(dj.algorithm(graph,0));
+        System.out.println(commande.getRobotChoice());
+        System.out.println("le robot parcours une distance de "+ commande.getDistance()+" metres");
+        System.out.println("le temps total a effectuer pour le robot est de " + commande.tempsTotal());
+        System.out.println("le chemin parcourut par le robot est :");
+        StringBuilder sb = new StringBuilder();
+        //aller
+        for(int i=0;i<orderedIndexes.size();++i){
+            sb.append("Node").append(orderedIndexes.get(i).getId()).append(" --> ");
         }
-        System.out.print(print);
+        //retour
+        for(int j = orderedIndexes.size()-2 ;j>0;j--){
+            sb.append("Node").append(orderedIndexes.get(j).getId()).append(" --> ");
+        }
+        sb.append("FIN");
     }
 }

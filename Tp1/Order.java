@@ -7,7 +7,7 @@ public class Order {
     private int A_;
     private int B_;
     private int C_;
-    private int distance; //distance nécéssaire pour parcourire
+    private int distance = Integer.MAX_VALUE; //distance nécéssaire pour parcourire
 
 
     public String getRobotChoice(){
@@ -39,7 +39,7 @@ public class Order {
         return C_;
     }
 
-
+    int getDistance(){return distance;}
 
     Order(int a, int b, int c){
         A_ = a;
@@ -60,88 +60,30 @@ public class Order {
      * @return the nodes in order (aller - retour)
      *
      */
-    NodeList chemin(DjikstraTable[] in,boolean[] indexes){
+    NodeList chemin(DjikstraTable[] in){
+        int a = 0;
+        int b = 0;
+        int c = 0;
         int dist =0;
-        Djikstra dj = new Djikstra();
-        while(dist<distance) {
-            int index = dj.findMin(in, indexes);
-            indexes[index] = true;
-            GraphNode node = in[index].getPreviousNode();
-            for(GraphEdge edge : node.getEdges()){
-
-            }
+        NodeList retval = new NodeList();
+        while(((a < A_) || (b < B_) || (c<C_)) && dist < distance){
+            /*fait ton code la*/
         }
-
-        return null;
+        return retval;
     }
 
 
-    public void afficherParcours(){
-        //affichage voulu
-        //pointdepart->point1->point2->collecting A-> pointn->pointarrive
-        String text= "pointDepart->";
-        for(GraphNode node:this) {
-            text+="point"+node.getId()+"->";//node parcouru
-            //objet recuperer
 
-        }
-        text+="pointArrivee";
-        System.out.println(text);
-        System.out.println("robot utilise : Type "+ getRobotChoice());
-        System.out.println("temps: "+ tempsTotal());
-        System.out.println("distance: "+ distanceTotal());
-
-
-    }
-
-    private double tempsTotal(){// A FAIRE
+    double tempsTotal(){
         int tempsTotal=0;
-        //formule temps=robot.computeK()*distanceTotal();
-
-        //il y a un cout de 10 secondes  pour prendre un objet a chaque fois
+        tempsTotal += (getRobotChoice() == "X") ? new RobotX().computeK():
+                (getRobotChoice() == "Y") ? new RobotY().computeK(): new RobotZ().computeK();
+        tempsTotal = tempsTotal * distance;
         tempsTotal+=(10*getTotalObjet());
 
         return tempsTotal;
 
     }
-
-    private double distanceTotal(){ //A FAIRE
-        int distanceTotal_=0;
-        //additioner toute les distances entre les nodes du parcours
-
-
-        //faire cette disctance *2 pour aller retour
-        distanceTotal_*=2;
-
-        return distanceTotal_;
-    }
-
-    private void plusCourtChemin(NodeList graph,int src, Order order){
-
-        //Dijkstra
-        //DjikstraTable[] djikstraTables=algorithm (graph,src);
-
-
-        //afficher robot utilise , afficher temps total et distance et commande
-
-        System.out.println("objet A: "+ order.getA_()+", objet B: "+ order.getB_()+", objet C: "+ order.getC_());
-        System.out.println(order.getRobotChoice());
-        System.out.println("le robot parcours une distance de "+ distanceTotal()+" metres");
-        System.out.println("le temps total a effectuer pour le robot est de ");//+ tempsTotal()); //manque parametre pour fonction
-
-        //afficher liste des noeuds traverse
-
-
-
-        //afficher les objets prient dans les noeuds
-
-
-    }
-
-
-
-
-
 
 
 }
