@@ -34,7 +34,7 @@ public class UserInterface {
                 case 4:
                     afficherCommande();
                 case 6:
-                    break;
+                    return;
                 default:
                     def();
             }
@@ -83,5 +83,9 @@ public class UserInterface {
     private void plusCourtChemin() {
         Djikstra dj;
         String print = "le chemin optimal est : \n" ;
+        for(GraphNode node : commande.chemin()){
+            print = print + Integer(node.getId()).toString() + " --> ";
+        }
+        System.out.print(print);
     }
 }
