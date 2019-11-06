@@ -53,9 +53,13 @@ public class UserInterface {
                 file = in.nextLine();
             }
         }
+        System.out.println("\n\n");
+        showOptions();
     }
     private void afficherGraph(){
         graph.afficherGraphe();
+        System.out.println("\n\n");
+        showOptions();
     }
     private void prendreCommande(){
         Scanner in = new Scanner(System.in);
@@ -66,30 +70,24 @@ public class UserInterface {
         System.out.print("Veuillez saisir le nombre d'objet <C> désiré : \n");
         int c = in.nextInt();
         commande = new Order(a,b,c);
+        System.out.println("\n\n");
+        showOptions();
     }
     private void afficherCommande(){
         commande.afficherCommande();
+        showOptions();
     }
 
-    /**
-     * todo
-     */
     private void plusCourtChemin() {
         Djikstra dj = new Djikstra();
-        NodeList orderedIndexes = commande.chemin(dj.algorithm(graph,0));
-        System.out.println(commande.getRobotChoice());
+        String actions = commande.chemin(dj.algorithm(graph,0));
+        System.out.println("un robot de type "+commande.getRobotChoice() + " est designe");
         System.out.println("le robot parcours une distance de "+ commande.getDistance()+" metres");
         System.out.println("le temps total a effectuer pour le robot est de " + commande.tempsTotal());
         System.out.println("le chemin parcourut par le robot est :");
-        StringBuilder sb = new StringBuilder();
-        //aller
-        for(int i=0;i<orderedIndexes.size();++i){
-            sb.append("Node").append(orderedIndexes.get(i).getId()).append(" --> ");
-        }
-        //retour
-        for(int j = orderedIndexes.size()-2 ;j>0;j--){
-            sb.append("Node").append(orderedIndexes.get(j).getId()).append(" --> ");
-        }
-        sb.append("FIN");
+        System.out.println(actions);
+        showOptions();
     }
+
+
 }

@@ -109,4 +109,13 @@ public class GraphNode{
     private int getNbObjetTotal() {
         return objetA + objetB + objetC;
     }
+    GraphEdge getClosestEdge(){
+        int minDistance = Integer.MAX_VALUE;
+        GraphEdge minEdge=null;
+        for(GraphEdge edge : edges){
+            if(edge.getDistance()<minDistance) minDistance = edge.getDistance();
+            minEdge = edge;
+        }
+        return minEdge;
+    }
 }
