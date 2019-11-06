@@ -3,7 +3,7 @@ package Tp1;
 import java.net.URL;
 import java.util.Scanner;
 
-public class UserInterface {
+class UserInterface {
     private NodeList graph;
     private Order commande ;
     private void start(){
@@ -19,7 +19,7 @@ public class UserInterface {
                 "6 : Quitter\n");
     }
 
-    public  void run(){
+    void run(){
         start();
         showOptions();
         Scanner in = new Scanner(System.in);
@@ -79,6 +79,7 @@ public class UserInterface {
     }
 
     private void plusCourtChemin() {
+
         Djikstra dj = new Djikstra();
         String actions = commande.chemin(dj.algorithm(graph,0));
         System.out.println("un robot de type "+commande.getRobotChoice() + " est designe");
