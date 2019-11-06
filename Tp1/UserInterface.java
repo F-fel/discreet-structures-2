@@ -85,6 +85,7 @@ public class UserInterface {
         System.out.println("le robot parcours une distance de "+ commande.getDistance()+" metres");
         System.out.println("le temps total a effectuer pour le robot est de " + commande.tempsTotal());
         System.out.println("le chemin parcourut par le robot est :");
+        actions = actions.replaceAll("(.{180})", "$1\n");
         System.out.println(actions);
         showOptions();
     }

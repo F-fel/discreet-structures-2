@@ -73,6 +73,10 @@ public class Order {
         sb.append(retval.getLast().getId()).append(" --> ");
         while((a >0) || (b >0) || (c>0)) {
             GraphEdge edge = retval.getLast().getClosestEdge();
+            while(retval.contains(edge.getNode())){ //faire un detour
+                retval.removeLast();
+                edge = retval.getLast().getRandomEdge();
+            }
             retval.add(edge.getNode());
             sb.append(retval.getLast().getId()).append(" --> ");
             distance += edge.getDistance();
@@ -123,6 +127,7 @@ public class Order {
         }
         for(int i = retval.size() -1 ;i>=0;--i){
             sb.append(retval.getLast().getId()).append(" ---> ");
+            retval.remove(i);
         }
         sb.append("FIN");
         return sb.toString();

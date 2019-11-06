@@ -1,8 +1,7 @@
 package Tp1;
 
 import java.util.LinkedList;
-
-//import static Tp1.objetType.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class GraphNode{
@@ -117,5 +116,9 @@ public class GraphNode{
             minEdge = edge;
         }
         return minEdge;
+    }
+    GraphEdge getRandomEdge(){
+        int randomNum = ThreadLocalRandom.current().nextInt(0, edges.size() );
+        return edges.get(randomNum);
     }
 }
