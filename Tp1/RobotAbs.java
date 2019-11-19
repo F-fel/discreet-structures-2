@@ -2,27 +2,30 @@ package Tp1;
 
 import java.util.LinkedList;
 
-public class RobotAbs {
-    final private int MAX_KILO;
-    private LinkedList<Objet> load;
-    private int loadWeight;
+enum robotType {X, Y, Z}
 
-    RobotAbs(int max){
-        MAX_KILO = max;
-        load = new LinkedList<>();
-        loadWeight = 0;
+public class RobotAbs {
+    static final int MAX_KILO_ = 25;
+    private LinkedList<Objet> load_;
+    private int loadWeight_;
+
+
+
+    RobotAbs(){
+        load_ = new LinkedList<Objet>();
+        loadWeight_ = 0;
     }
 
     public boolean pickup(Objet objet, GraphNode node){
-        if(loadWeight + objet.getWeight() >= MAX_KILO) return false;
-        load.add(objet);
-        loadWeight += objet.getWeight();
-        node.remove(objet.getType());
+        if(loadWeight_ + objet.getWeight() >= MAX_KILO_) return false;
+        load_.add(objet);
+        loadWeight_ += objet.getWeight();
+        node.remove(objet.getType(),1);
         return true;
     }
 
     protected double computeK(double value, double factor){
-        return value + factor * loadWeight;
+        return value + factor * loadWeight_;
     }
 
 }

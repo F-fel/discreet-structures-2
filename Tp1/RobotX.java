@@ -1,8 +1,9 @@
 package Tp1;
 
 public class RobotX extends RobotAbs{
+    static final int MAX_KILO_ = 5;
     RobotX() {
-        super(5);
+        super();
     }
 
     public double computeK() {

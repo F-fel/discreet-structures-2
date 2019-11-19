@@ -1,6 +1,7 @@
 package Tp1;
 
 enum objetType {A, B, C}
+
 public class Objet {
     private int weight;
     private objetType type; //identification
@@ -17,6 +18,7 @@ public class Objet {
         }
 
     }
+    public boolean equals(Objet O){ return (type == O.type); }
     public int getWeight() { return weight;}
     public objetType getType(){return type;}
 
