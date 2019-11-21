@@ -1,3 +1,5 @@
+package Tp2;
+
 enum ObjectType {A,B,C};
 public class Objet {
     private String name;
