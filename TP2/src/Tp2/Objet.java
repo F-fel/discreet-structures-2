@@ -3,9 +3,9 @@ package Tp2;
 enum ObjectType {A,B,C};
 public class Objet {
     private String name;
-    private int ID;
+    private Hex ID;
     private ObjectType type;
-    Objet(String n, int i, ObjectType t){
+    Objet(String n, Hex i, ObjectType t){
         name = n;
         ID =i;
         type =t;
@@ -16,7 +16,7 @@ public class Objet {
     public String getName() {
         return name;
     }
-    public int getID() {
+    public Hex getID() {
         return ID;
     }
     public boolean equals(Objet obj) {
