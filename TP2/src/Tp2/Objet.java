@@ -1,6 +1,5 @@
 package Tp2;
 
-enum ObjectType {A,B,C};
 public class Objet {
     private String name;
     private Hex ID;
@@ -10,16 +9,21 @@ public class Objet {
         ID =i;
         type =t;
     }
-    public ObjectType getType() {
+    ObjectType getType() {
         return type;
     }
-    public String getName() {
+    String getName() {
         return name;
     }
-    public Hex getID() {
+    Hex getID() {
         return ID;
     }
     public boolean equals(Objet obj) {
         return this.ID == obj.ID;
+    }
+
+    @Override
+    public String toString() {
+        return "name : "+name + " ID : "+ ID.toString() + "Type : "+ type.asChar();
     }
 }
