@@ -1,25 +1,30 @@
 package Tp2;
+import com.intellij.ui.components.JBList;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class GraphicInterface extends JFrame {
+class GraphicInterface extends JFrame {
     private Entrepot entrepot;
-    private Entrepot panier;
+    Entrepot panier;
     private JPanel mainPanel;
-    JLabel welcome;
-    JButton back;
+    private JLabel welcome;
+    private JButton back;
+    private JList<String> list;
+
+
     public GraphicInterface() {
         super("TP4");
+        //some initialisation
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        entrepot  =new Entrepot();
+        entrepot = new Entrepot();
         panier = new Entrepot();
 
         //main screen buttons and label
         JButton init = new JButton("Initialiser le programme");
-        init.setPreferredSize(new Dimension(40,100));
         JButton research = new JButton("Rechercher un élément");
         JButton gotoCart = new JButton("allez au panier");
         JButton close = new JButton("Fermer la session");
@@ -41,21 +46,50 @@ public class GraphicInterface extends JFrame {
         mainPanel.add(research);
         mainPanel.add( gotoCart);
         mainPanel.add(close);
-        mainPanel.setSize(250,350);
+        mainPanel.setSize(350,550);
         add(mainPanel);
-        setSize(300, 400);
+        setSize(400, 600);
         setVisible(true);//making the frame visible
     }
 
 
-
+    private void suggestNames(String s){
+        Automate automate = new Automate(s);
+        list= new JBList<>(automate.filter(entrepot.getNamesArray()));
+    }
     /*Action listeners below are used to give Jbuttons purpose in life.*/
     private class researchListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            /*
-             * TODO
-             * */
+            getContentPane().removeAll();
+            JSplitPane splitPane = new JSplitPane();
+            JPanel searchPanel = new JPanel(new GridLayout(4,1));
+            searchPanel.add(new JLabel("Selectionner les options de recherche : \n"));
+            JCheckBox nameBox = new JCheckBox("nom");
+            JPanel suggestPanel = new JPanel(); //no layout
+            nameBox.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    JTextField nameText = new JTextField();
+                    searchPanel.add(nameText);
+                    nameText.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent actionEvent) {
+                            suggestNames(nameText.getText());
+                            suggestPanel.add(list);
+                            revalidate();
+                            repaint();
+                        }
+                    });
+                }
+            });
+            searchPanel.add(nameBox);
+            JCheckBox hexBox = new JCheckBox("ID hex");
+            splitPane.setLeftComponent(searchPanel);
+            splitPane.setRightComponent(suggestPanel);
+            add(splitPane);
+            revalidate();
+            repaint();
         }
     }
 

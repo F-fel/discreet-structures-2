@@ -32,6 +32,30 @@ public class Entrepot extends ArrayList<Objet> {
         }
         return retval;
     }
+    public String[] getNamesArray(){
+        String[] retval = new String[this.size()];
+        int i =0;
+        for (Objet o: this){
+            retval[i++] = o.getName();
+        }
+        return retval;
+    }
+    public String[] getHexArray(){
+        String[] retval = new String[this.size()];
+        int i =0;
+        for (Objet o: this){
+            retval[i++] = o.getID().toString();
+        }
+        return retval;
+    }
+    public String[] getTypeArray(){
+        String[] retval = new String[this.size()];
+        int i =0;
+        for (Objet o: this){
+            retval[i++] = o.getType().toString();
+        }
+        return retval;
+    }
 
 
 }

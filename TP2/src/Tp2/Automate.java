@@ -6,6 +6,13 @@ public class Automate {
   Automate( State[] stateList){
     states = stateList;
   }
+  Automate(String s){
+    states = new State[s.length()];
+    int i=0; //index
+    for(char c : s.toCharArray() ){
+      states[i++]=new State(c);
+    }
+  }
   public ArrayList<String> filter(String[] data){
     ArrayList<String> retval = new ArrayList<>();
     for(String s : data){
