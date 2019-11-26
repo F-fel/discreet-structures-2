@@ -24,6 +24,6 @@ public class Objet {
 
     @Override
     public String toString() {
-        return "name : "+name + " ID : "+ ID.toString() + "Type : "+ type.asChar();
+        return "name : "+name + " ID : "+ ID.toString() + " Type : "+ type.asChar();
     }
 }

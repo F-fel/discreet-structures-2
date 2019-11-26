@@ -1,5 +1,7 @@
 package Tp2;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -32,7 +34,7 @@ public class Entrepot extends ArrayList<Objet> {
         }
         return retval;
     }
-    public String[] getNamesArray(){
+    String[] getNamesArray(){
         String[] retval = new String[this.size()];
         int i =0;
         for (Objet o: this){
@@ -40,7 +42,7 @@ public class Entrepot extends ArrayList<Objet> {
         }
         return retval;
     }
-    public String[] getHexArray(){
+    String[] getHexArray(){
         String[] retval = new String[this.size()];
         int i =0;
         for (Objet o: this){
@@ -56,6 +58,14 @@ public class Entrepot extends ArrayList<Objet> {
         }
         return retval;
     }
-
+    @NotNull
+    public String[] toArray(){
+        String[] retval = new String[size()];
+        int i =0;
+        for(Objet o : this){
+            retval[i++] = o.toString();
+        }
+        return retval;
+    }
 
 }

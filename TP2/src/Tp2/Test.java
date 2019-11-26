@@ -11,7 +11,7 @@ public class Test {
             System.out.println(o.toString());
         }
 
-    }
+    }/*
     public void automateTester() {
         State s0 = new State('t');
         State s1 = new State('e');
@@ -33,5 +33,5 @@ public class Test {
         for (String s : ret) {
             System.out.println(s);
         }
-    }
+    }*/
 }
