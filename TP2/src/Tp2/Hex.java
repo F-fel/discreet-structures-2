@@ -74,4 +74,7 @@ public class Hex{
     public int getValue() {
         return value;
     }
+    boolean equals(Hex hex){
+        return (hex.forme.equals(forme) && value==hex.value);
+    }
 }

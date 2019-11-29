@@ -7,33 +7,18 @@ import java.util.LinkedList;
 
 public class Entrepot extends ArrayList<Objet> {
     Entrepot(){super();}
-    public Entrepot getByName(LinkedList<String> strings ){
+    public Objet popByID(String s ){
+        Hex id = new Hex(s);
         Entrepot retval = new Entrepot();
         for(Objet o : this){
-            for (String s : strings){
-                if(o.getName().equals(s)) retval.add(o);
+            if( o.getID().equals(id)) {
+                remove(o);
+                return o;
             }
         }
-        return retval;
+        return null;
     }
-    public Entrepot getByID(LinkedList<String> strings ){
-        Entrepot retval = new Entrepot();
-        for(Objet o : this){
-            for (String s : strings){
-                if(o.getID().toString().equals(s)) retval.add(o);
-            }
-        }
-        return retval;
-    }
-    public Entrepot getByType(LinkedList<String> strings ){
-        Entrepot retval = new Entrepot();
-        for(Objet o : this){
-            for (String s : strings){
-                if(o.getType().asChar() == s.charAt(0)) retval.add(o);
-            }
-        }
-        return retval;
-    }
+
     String[] getNamesArray(){
         String[] retval = new String[this.size()];
         int i =0;
@@ -59,7 +44,7 @@ public class Entrepot extends ArrayList<Objet> {
         return retval;
     }
     @NotNull
-    public String[] toArray(){
+     String[] toStringArray(){
         String[] retval = new String[size()];
         int i =0;
         for(Objet o : this){
@@ -67,5 +52,4 @@ public class Entrepot extends ArrayList<Objet> {
         }
         return retval;
     }
-
 }
