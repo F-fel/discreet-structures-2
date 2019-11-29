@@ -2,8 +2,8 @@ package Tp2;
 
  class Automate {
   private State[] states;
-  Automate( State[] stateList){
-    states = stateList;
+  Automate(){
+      states  =null;
   }
   Automate(String s){
     states = new State[s.length()];
@@ -58,22 +58,5 @@ package Tp2;
       }
       return retval;
   }
-  /*
-   ArrayList<String> filter(String[] data){
-    ArrayList<String> retval = new ArrayList<>();
-    for(String s : data){
-      if(s.length() >= states.length){
-        char[] sArray  = s.toCharArray();
-        int i = 0; //index
-        while(states[i].validate(sArray[i])){
-          i++;
-          if(i == states.length){
-            retval.add(s);
-            break;
-          }
-        } 
-      }
-    }
-    return retval;
-  }*/
+  boolean isNull(){return states==null;}
 }

@@ -18,6 +18,11 @@ public class Entrepot extends ArrayList<Objet> {
         }
         return null;
     }
+    void add(Entrepot e){
+        for(Objet o : e){
+            add(o);
+        }
+    }
 
     String[] getNamesArray(){
         String[] retval = new String[this.size()];
@@ -51,5 +56,14 @@ public class Entrepot extends ArrayList<Objet> {
             retval[i++] = o.toString();
         }
         return retval;
+    }
+    int weight(){
+        int x =0;
+        for(Objet o : this){
+            if(o.getType() == ObjectType.A) x++;
+            else if(o.getType() == ObjectType.B) x+=3;
+            else if(o.getType() == ObjectType.C) x+=5;
+        }
+        return x;
     }
 }

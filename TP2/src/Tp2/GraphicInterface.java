@@ -18,6 +18,10 @@ class GraphicInterface extends JFrame {
     private JButton back;
     private JList<String> list;
     private Entrepot suggestedItems;
+    private Automate automateName;
+    private Automate automateID;
+    private Automate automateType;
+    private JButton gotoCart;
 
 
     GraphicInterface() {
@@ -27,13 +31,16 @@ class GraphicInterface extends JFrame {
         entrepot = new Entrepot();
         panier = new Entrepot();
         suggestedItems = new Entrepot();
-
+        automateType=new Automate();
+        automateID=new Automate();
+        automateName = new Automate();
         //main screen buttons and label
         JButton init = new JButton("Initialiser le programme");
         JButton research = new JButton("Rechercher un élément");
-        JButton gotoCart = new JButton("allez au panier");
+        gotoCart = new JButton("allez au panier");
         JButton close = new JButton("Fermer la session");
         back = new JButton("retourner a l'ecran principale");//not added to main screen just initialised
+        back.addActionListener(new ReturnButtonListener());
         welcome = new JLabel("Bienvenue au Tp2 de Log2410");
         //give each button an action
         setLayout(new GridLayout(5, 1));
@@ -57,24 +64,14 @@ class GraphicInterface extends JFrame {
         setVisible(true);//making the frame visible
     }
 
-    // methods below are used to give suggestions based on type of the search
-    private void suggestNames(String s) {
-        Automate automate = new Automate(s);
-        suggestedItems = automate.filterByName(suggestedItems);
+    private void suggest(){
+        suggestedItems = entrepot;
+        if(!automateName.isNull()) suggestedItems= automateName.filterByName(suggestedItems);
+        if(!automateType.isNull()) suggestedItems=automateType.filterByType(suggestedItems);
+        if(!automateID.isNull()) suggestedItems = automateID.filterByHex(suggestedItems);
         list = new JBList<>(suggestedItems.toStringArray());
     }
 
-    private void suggestID(String s) {
-        Automate automate = new Automate(s);
-        suggestedItems = automate.filterByHex(suggestedItems);
-        list = new JBList<>(suggestedItems.toStringArray());
-    }
-
-    private void suggestType(ObjectType t) {
-        Automate automate = new Automate(t);
-        suggestedItems = automate.filterByType(suggestedItems);
-        list = new JBList<>(suggestedItems.toStringArray());
-    }
 
     /*Action listeners below are used to give Jbuttons purpose in life.*/
     private class researchListener implements ActionListener {
@@ -104,11 +101,44 @@ class GraphicInterface extends JFrame {
     private class CartListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
+            JLabel weight = new JLabel("Le panier pese : " + panier.weight() + "kg.");
+            list = new JBList<>(panier.toStringArray());
             getContentPane().removeAll();
+            JButton remove = new JButton("enlever un element");
+            remove.addActionListener(actionEvent1 -> {
+                String value = list.getSelectedValue();
+                value = value.substring(value.indexOf("ID : ") + 5, value.indexOf(" Type"));
+                entrepot.add(panier.popByID(value));
+                this.actionPerformed(actionEvent);
+            });
+            JButton empty = new JButton("vider le panier");
+            empty.addActionListener(actionEvent1 -> {
+                entrepot.add(panier);
+                panier = new Entrepot();
+                this.actionPerformed(actionEvent);
+            });
+            JButton commande = new JButton("Acheminer la commande");
+            commande.addActionListener(actionEvent1 -> {
+                if(panier.weight() > 25) JOptionPane.showMessageDialog(null,"votre commande depasse 25kg. Veuillez vider le panier");
+                else panier = new Entrepot();
+                list = new JBList<>(panier.toStringArray());
+                welcome.setText("Merci de patienter pendant que nous preparons votre commande");
+                welcome.setForeground(Color.GREEN);
+                ReturnButtonListener rbl = new ReturnButtonListener();
+                rbl.actionPerformed(actionEvent);
+            });
+            JPanel buttons = new JPanel(new GridLayout(1,4));
+            JPanel btnWeight = new JPanel(new GridLayout(2,1));
+            add(list);
+            btnWeight.add(weight);
+            buttons.add(commande);
+            buttons.add(back);
+            buttons.add(remove);
+            buttons.add(empty);
+            btnWeight.add(buttons);
+            add(btnWeight);
+            revalidate();
             repaint();
-            /** TODO : add new buttons with their classes
-             *
-             * */
         }
     }
 
@@ -123,7 +153,7 @@ class GraphicInterface extends JFrame {
         @Override
         public void actionPerformed(ActionEvent actionevent) {
             getContentPane().removeAll();
-            setLayout(new GridLayout(5,1));
+            setLayout(new GridLayout(6,1));
             add(welcome);
             add(mainPanel);
             revalidate();
@@ -142,13 +172,12 @@ class GraphicInterface extends JFrame {
         searchPanel.add(new JLabel("Selectionner les options de recherche : \n"));
         JPanel suggestPanel = new JPanel();
         JButton addToCart = new JButton("Ajouter au panier");
-        addToCart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                String value = list.getSelectedValue();
-                value = value.substring(value.indexOf("ID : ") + 5, value.indexOf(" Type") - 1);
-                panier.add(entrepot.popByID(value));
-            }
+        addToCart.addActionListener(actionEvent -> {
+            String value = list.getSelectedValue();
+            value = value.substring(value.indexOf("ID : ") + 5, value.indexOf(" Type"));
+            Objet popped = entrepot.popByID(value);
+            if(popped != null) panier.add(popped);
+            else JOptionPane.showMessageDialog(null, "essaie d'ajout d'objet non disponible. clicker sur rechercher pour rafraishir la liste SVP");
         });
 
         addToCart.setPreferredSize(new Dimension(40, 40));
@@ -159,33 +188,58 @@ class GraphicInterface extends JFrame {
         JTextField nameText = new JTextField();
         JTextField hexText = new JTextField();
         JRadioButton typeA = new JRadioButton("A");
+        ButtonGroup types = new ButtonGroup();
         typeA.setBounds(75,50,100,30);
         typeA.setVisible(false);
+        typeA.addActionListener(actionEvent -> {
+            if(typeA.isSelected()) automateType = new Automate(ObjectType.A);
+            suggest();
+            suggestPanel.removeAll();
+            suggestPanel.add(list);
+            suggestPanel.revalidate();
+            suggestPanel.repaint();
+        });
         JRadioButton typeB = new JRadioButton("B");
         typeB.setBounds(75,50,100,30);
         typeB.setVisible(false);
+        typeB.addActionListener(actionEvent -> {
+            if(typeB.isSelected()) automateType = new Automate(ObjectType.B);
+            suggest();
+            suggestPanel.removeAll();
+            suggestPanel.add(list);
+            suggestPanel.revalidate();
+            suggestPanel.repaint();
+
+        });
         JRadioButton typeC = new JRadioButton("C");
         typeC.setBounds(75,50,100,30);
         typeC.setVisible(false);
-        ButtonGroup types = new ButtonGroup();
+        typeC.addActionListener(actionEvent -> {
+            if(typeC.isSelected()) {
+                automateType = new Automate(ObjectType.C);
+
+                suggest();
+                suggestPanel.removeAll();
+                suggestPanel.add(list);
+                suggestPanel.revalidate();
+                suggestPanel.repaint();
+            }
+
+        });
         types.add(typeA);
         types.add(typeB);
         types.add(typeC);
-        hexBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                hexText.setVisible(!hexText.isVisible());
-                hexText.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        suggestNames(hexText.getText());
-                        list.setVisible(true);
-                        splitPane.revalidate();
-                        splitPane.repaint();
-                    }
-                });
-
+        hexBox.addActionListener(actionEvent -> {
+            hexText.setVisible(!hexText.isVisible());
+            if(!hexText.isVisible()) {
+                automateID = new Automate();
+                suggest();
+                suggestPanel.removeAll();
+                suggestPanel.add(list);
+                suggestPanel.revalidate();
+                suggestPanel.repaint();
             }
+
         });
 
         searchPanel.add(nameText);
@@ -198,12 +252,17 @@ class GraphicInterface extends JFrame {
         searchPanel.add(typeA);
         searchPanel.add(typeB);
         searchPanel.add(typeC);
-        typeBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                typeA.setVisible(!typeA.isVisible());
-                typeB.setVisible(!typeB.isVisible());
-                typeC.setVisible(!typeC.isVisible());
+        typeBox.addActionListener(actionEvent -> {
+            typeA.setVisible(!typeA.isVisible());
+            typeB.setVisible(!typeB.isVisible());
+            typeC.setVisible(!typeC.isVisible());
+            if(!typeA.isVisible()) {
+                automateType = new Automate();
+                suggest();
+                suggestPanel.removeAll();
+                suggestPanel.add(list);
+                suggestPanel.revalidate();
+                suggestPanel.repaint();
             }
         });
         hexText.getDocument().addDocumentListener(new DocumentListener() {
@@ -212,7 +271,8 @@ class GraphicInterface extends JFrame {
             }
 
             public void removeUpdate(DocumentEvent e) {
-                updateSuggestions();
+                if(!hexText.getText().equals("")) updateSuggestions();
+                else automateID=new Automate();
             }
 
             public void insertUpdate(DocumentEvent e) {
@@ -220,7 +280,8 @@ class GraphicInterface extends JFrame {
             }
 
             void updateSuggestions() {
-                suggestID(hexText.getText());
+                automateID = new Automate(hexText.getText());
+                suggest();
                 suggestPanel.removeAll();
                 suggestPanel.add(list);
                 suggestPanel.revalidate();
@@ -236,7 +297,8 @@ class GraphicInterface extends JFrame {
             }
 
             public void removeUpdate(DocumentEvent e) {
-                updateSuggestions();
+                if(!nameText.getText().equals("")) updateSuggestions();
+                else automateName=new Automate();
             }
 
             public void insertUpdate(DocumentEvent e) {
@@ -244,7 +306,8 @@ class GraphicInterface extends JFrame {
             }
 
             void updateSuggestions() {
-                suggestNames(nameText.getText());
+                automateName = new Automate(nameText.getText());
+                suggest();
                 suggestPanel.removeAll();
                 suggestPanel.add(list);
                 suggestPanel.revalidate();
@@ -254,26 +317,23 @@ class GraphicInterface extends JFrame {
                 splitPane.repaint();
             }
         });
-        nameBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                nameText.setVisible(!nameText.isVisible());
-                nameText.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        suggestNames(nameText.getText());
-                        list.setVisible(true);
-                        splitPane.revalidate();
-                        splitPane.repaint();
-                    }
-                });
-            }
+        nameBox.addActionListener(actionEvent -> {
+            nameText.setVisible(!nameText.isVisible());
+            if(!nameText.isVisible()) automateName = new Automate();
         });
-        JButton back = new JButton("retourner au menu princiaple");
-        back.addActionListener(new ReturnButtonListener());
-        JPanel buttons = new JPanel(new GridLayout(1,2));
+        JPanel buttons = new JPanel(new GridLayout(1,3));
         buttons.add(addToCart);
+        buttons.add(gotoCart);
         buttons.add(back);
+        JButton rechercher = new JButton("rechercher");
+        rechercher.addActionListener(actionEvent -> {
+            suggest();
+            suggestPanel.removeAll();
+            suggestPanel.add(list);
+            revalidate();
+            repaint();
+        });
+        searchPanel.add(rechercher);
         splitPane.setLeftComponent(searchPanel);
         splitPane.setRightComponent(suggestPanel);
         add(splitPane);
