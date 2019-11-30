@@ -1,6 +1,5 @@
 package Tp2;
 
-import com.intellij.ui.components.JBList;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -9,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.security.InvalidParameterException;
 
 class GraphicInterface extends JFrame {
     private Entrepot entrepot;
@@ -21,11 +21,10 @@ class GraphicInterface extends JFrame {
     private Automate automateName;
     private Automate automateID;
     private Automate automateType;
-    private JButton gotoCart;
 
 
     GraphicInterface() {
-        super("TP4");
+        super("TP2");
         //some initialisation
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         entrepot = new Entrepot();
@@ -34,10 +33,11 @@ class GraphicInterface extends JFrame {
         automateType=new Automate();
         automateID=new Automate();
         automateName = new Automate();
+        list = new JList<>();
         //main screen buttons and label
         JButton init = new JButton("Initialiser le programme");
         JButton research = new JButton("Rechercher un élément");
-        gotoCart = new JButton("allez au panier");
+        JButton gotoCart = new JButton("allez au panier");
         JButton close = new JButton("Fermer la session");
         back = new JButton("retourner a l'ecran principale");//not added to main screen just initialised
         back.addActionListener(new ReturnButtonListener());
@@ -64,12 +64,15 @@ class GraphicInterface extends JFrame {
         setVisible(true);//making the frame visible
     }
 
+    /**
+     * suggestion d'objet de l'entrepot
+     */
     private void suggest(){
         suggestedItems = entrepot;
         if(!automateName.isNull()) suggestedItems= automateName.filterByName(suggestedItems);
         if(!automateType.isNull()) suggestedItems=automateType.filterByType(suggestedItems);
         if(!automateID.isNull()) suggestedItems = automateID.filterByHex(suggestedItems);
-        list = new JBList<>(suggestedItems.toStringArray());
+        list = new JList<>(suggestedItems.toStringArray());
     }
 
 
@@ -87,8 +90,8 @@ class GraphicInterface extends JFrame {
             EntrepotFactory ef = new EntrepotFactory();
             try {
                 entrepot = ef.read();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,e.getMessage()+"\n Veuillez modifier invantaire.txt et relancer l'application");
             }
             suggestedItems = entrepot;
             welcome.setText("entrepot successfully loaded");
@@ -102,7 +105,7 @@ class GraphicInterface extends JFrame {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             JLabel weight = new JLabel("Le panier pese : " + panier.weight() + "kg.");
-            list = new JBList<>(panier.toStringArray());
+            list = new JList<>(panier.toStringArray());
             getContentPane().removeAll();
             JButton remove = new JButton("enlever un element");
             remove.addActionListener(actionEvent1 -> {
@@ -121,7 +124,7 @@ class GraphicInterface extends JFrame {
             commande.addActionListener(actionEvent1 -> {
                 if(panier.weight() > 25) JOptionPane.showMessageDialog(null,"votre commande depasse 25kg. Veuillez vider le panier");
                 else panier = new Entrepot();
-                list = new JBList<>(panier.toStringArray());
+                list = new JList<>(panier.toStringArray());
                 welcome.setText("Merci de patienter pendant que nous preparons votre commande");
                 welcome.setForeground(Color.GREEN);
                 ReturnButtonListener rbl = new ReturnButtonListener();
@@ -173,11 +176,15 @@ class GraphicInterface extends JFrame {
         JPanel suggestPanel = new JPanel();
         JButton addToCart = new JButton("Ajouter au panier");
         addToCart.addActionListener(actionEvent -> {
-            String value = list.getSelectedValue();
-            value = value.substring(value.indexOf("ID : ") + 5, value.indexOf(" Type"));
-            Objet popped = entrepot.popByID(value);
-            if(popped != null) panier.add(popped);
-            else JOptionPane.showMessageDialog(null, "essaie d'ajout d'objet non disponible. clicker sur rechercher pour rafraishir la liste SVP");
+            if(list.isSelectionEmpty()) JOptionPane.showMessageDialog(null,"rien de selectionner a ajouter au panier");
+            else {
+                String value = list.getSelectedValue();
+                value = value.substring(value.indexOf("ID : ") + 5, value.indexOf(" Type"));
+                Objet popped = entrepot.popByID(value);
+                if (popped != null) panier.add(popped);
+                else
+                    JOptionPane.showMessageDialog(null, "essaie d'ajout d'objet non disponible. clicker sur rechercher pour rafraishir la liste SVP");
+            }
         });
 
         addToCart.setPreferredSize(new Dimension(40, 40));
@@ -323,6 +330,8 @@ class GraphicInterface extends JFrame {
         });
         JPanel buttons = new JPanel(new GridLayout(1,3));
         buttons.add(addToCart);
+        JButton gotoCart=new JButton("aller au panier");
+        gotoCart.addActionListener(new CartListener());
         buttons.add(gotoCart);
         buttons.add(back);
         JButton rechercher = new JButton("rechercher");

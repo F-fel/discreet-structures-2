@@ -3,8 +3,8 @@ package Tp2;
 import java.io.*;
 import java.security.InvalidParameterException;
 
-public class EntrepotFactory{
-    public Entrepot read() throws IOException {
+ class EntrepotFactory{
+     Entrepot read() throws InvalidParameterException, IOException {
         Entrepot retval = new Entrepot();
         File file = new File(getClass().getResource("inventaire.txt").getFile());
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -13,7 +13,9 @@ public class EntrepotFactory{
             int nameEnd = line.indexOf(" ");
             int idEnd = line.indexOf(" ",nameEnd+1);
             String name = line.substring(0,nameEnd);
-            Hex hex = new Hex(line.substring(nameEnd+1,idEnd));
+            String hexString = line.substring(nameEnd+1,idEnd);
+            if(hexString.length() != 6) throw new InvalidParameterException(hexString + " n'est pa de taille 6.");
+            Hex hex = new Hex(hexString);
             switch(line.substring(idEnd+1).charAt(0)){
                 case 'A':
                     retval.add(new Objet(name,hex,ObjectType.A));
